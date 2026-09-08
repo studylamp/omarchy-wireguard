@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "io.github.studylamp.wireguard",
+  "name": "WireGuard",
+  "version": "1.0.0",
+  "author": "Brandon Staggs",
+  "license": "MIT",
+  "description": "WireGuard tunnel status and toggling for NetworkManager-managed tunnels, in the Omarchy bar.",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "Panel.qml"
+  },
+  "barWidget": {
+    "displayName": "WireGuard",
+    "description": "Toggle WireGuard tunnels, see the tunnel address, routing mode, and live transfer.",
+    "category": "Network",
+    "allowMultiple": false,
+    "defaultSection": "right",
+    "defaults": {
+      "refreshIntervalSec": 5,
+      "primary": ""
+    },
+    "schema": [
+      {
+        "key": "refreshIntervalSec",
+        "type": "integer",
+        "label": "Refresh interval (seconds)",
+        "min": 2,
+        "max": 3600,
+        "step": 1,
+        "defaultValue": 5
+      },
+      {
+        "key": "primary",
+        "type": "string",
+        "label": "Primary tunnel (name or UUID; blank = first)",
+        "defaultValue": ""
+      }
+    ]
+  }
+}
