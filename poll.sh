@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -o pipefail
 # Emits one blob describing every NetworkManager WireGuard tunnel, so a refresh
 # costs a single process instead of several per tunnel. Section markers are
 # `#TAG argument`; Model.js parses them.
@@ -7,7 +8,8 @@
 # used: it needs root, and NetworkManager already exposes the address, routes
 # and endpoint we display.
 
-conns=$(nmcli -t -f UUID,NAME,TYPE,ACTIVE,DEVICE,STATE connection show 2>/dev/null | grep ':wireguard:')
+all_connections=$(nmcli -t -f UUID,NAME,TYPE,ACTIVE,DEVICE,STATE connection show 2>/dev/null) || exit 1
+conns=$(printf '%s\n' "$all_connections" | grep ':wireguard:' || true)
 
 printf '#CONNS\n'
 [ -n "$conns" ] && printf '%s\n' "$conns"

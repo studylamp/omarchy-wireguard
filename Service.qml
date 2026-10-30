@@ -25,7 +25,7 @@ Item {
   }
   readonly property bool busy: pollProcess.running || actionProcess.running
   readonly property string statusText: Model.statusSummary(tunnels, loaded)
-  readonly property string scriptPath: String(Qt.resolvedUrl("poll.sh")).replace(/^file:\/\//, "")
+  readonly property string scriptPath: decodeURIComponent(String(Qt.resolvedUrl("poll.sh")).replace(/^file:\/\//, ""))
 
   function setting(name, fallback) {
     var value = settings ? settings[name] : undefined
